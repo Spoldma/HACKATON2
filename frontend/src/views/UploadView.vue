@@ -1,12 +1,12 @@
 <template>
     <HeaderComp/>
-    <UploadForm/>
+    <UploadFile/>
   </template>
   <script>
-    import UploadForm from "@/components/UploadForm.vue"
     import HeaderComp from "@/components/HeaderComp.vue"
+    import UploadFile from "@/components/UploadFile.vue";
     export default {
     name: 'UploadView',
-    components: {HeaderComp, UploadForm}
+    components: { HeaderComp, UploadFile }
   }
   </script>
