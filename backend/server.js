@@ -3,10 +3,10 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
 app.use(express.json());
 
 // Multer configuration for file upload

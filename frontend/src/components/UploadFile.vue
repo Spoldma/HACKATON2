@@ -1,6 +1,7 @@
 
 <template>
   <div>
+
     <vue-dropzone
       id="fileUpload"
       ref="fileUpload"

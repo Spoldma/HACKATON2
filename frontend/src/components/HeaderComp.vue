@@ -2,7 +2,7 @@
     <header>
         <nav>
         <router-link to="/">Kodu</router-link> |
-        <router-link to="/lisa">Lae üles</router-link>
+        <router-link to="/upload">Lae üles</router-link>
       </nav>
       <router-view/>
     </header>
