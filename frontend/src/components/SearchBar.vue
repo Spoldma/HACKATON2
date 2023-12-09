@@ -4,21 +4,22 @@
      <p>{{ fail }}</p>
    </div>
    <div class="item error" v-if="input&&!filteredList().length">
-      <p>No results found!</p>
+      <p>Vastet ei leitud!</p>
    </div>
- </template>
+</template>
 
 
- <script setup>
- import { ref } from "vue";
- let input = ref("");
- const fruits = ["apple", "banana", "orange"];
- function filteredList() {
-   return fruits.filter((fail) =>
-     fail.toLowerCase().includes(input.value.toLowerCase())
-   );
- }
- </script>
+
+<script setup>
+import { ref } from "vue";
+let input = ref("");
+const data = ["apple", "banana", "orange"];
+function filteredList() {
+  return data.filter((failiNimi) =>
+    failiNimi.toLowerCase().includes(input.value.toLowerCase())
+  );
+}
+</script>
 
 
 
@@ -43,7 +44,7 @@ input {
   width: 350px;
   margin: 20px auto;
   padding: 10px 45px;
-  background: white url("assets/search-icon.svg") no-repeat 15px center;
+  background: white url("../assets/search-icon.png") no-repeat 15px center;
   background-size: 15px 15px;
   font-size: 16px;
   border: none;
@@ -63,7 +64,7 @@ input {
 }
 
 .leid {
-  background-color: rgb(97, 62, 252);
+  background-color: rgb(88, 73, 154);
   cursor: pointer;
 }
 
