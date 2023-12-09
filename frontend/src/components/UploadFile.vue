@@ -1,46 +1,37 @@
+
 <template>
-    <form>
-      <label for="file-description">File Description:</label>
-      <textarea id="file-description" rows="1" cols="25" placeholder="Enter file description"></textarea>
-      <label for="file-input">Select a file:</label>
-      <input type="file" id="file-input" accept=".jpg, .jpeg, .png .pdf" required>
-      <button id="upload-button" onclick="uploadFile()">Upload File</button>
-    </form>
+  <div>
+    <vue-dropzone
+      id="fileUpload"
+      ref="fileUpload"
+      :options="dropzoneOptions"
+      @vdropzone-success="onFileUploadSuccess"
+    ></vue-dropzone>
+  </div>
 </template>
-    <script>
-      import axios from 'axios';
 
-        export default {
-          data() {
-            return {
-              file: null,
-              fileDescription: '',
-            };
-          },
-          methods: {
-            handleFileChange(event) {
-              this.file = event.target.files[0];
-            },
-            uploadFile() {
-              if (!this.file) {
-                alert('Please select a file before uploading.');
-                return;
-              }
+<script>
+export default {
+  name: 'UploadFile',
+  data() {
+    return {
+      dropzoneOptions: {
+        url: '/api/upload', // Backend endpoint for file upload
+        paramName: 'file',
+        maxFilesize: 2, // MB
+        clickable: true,
+      },
+    };
+  },
+  methods: {
+    onFileUploadSuccess(file, response) {
+      // Handle successful file upload
+      console.log(response);
+    },
+  },
+};
+</script>
 
-              const formData = new FormData();
-              formData.append('file', this.file);
-              formData.append('description', this.fileDescription);
-
-              axios.post('http://localhost:3000/upload', formData)
-                .then(response => {
-                  console.log(response.data);
-                  alert('File uploaded successfully!');
-                })
-                .catch(error => {
-                  console.error('Error uploading file:', error);
-                  alert('Error uploading file. Please try again.');
-                });
-            },
-          },
-        };
-    </script>
+<style>
+/* Your component styles here */
+</style>

@@ -1,14 +1,35 @@
 const express = require('express');
-const pool = require('./database');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
 
 const port = process.env.PORT || 3000;
-
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json());
 
+// Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, 'uploads')); // Set the destination folder for file uploads
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// File upload endpoint
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  // File has been uploaded and saved locally
+  res.json({ message: 'File uploaded successfully' });
+});
+
+// Serve uploaded files as static resources
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.listen(port, () => {
-    console.log("Server is listening to port " + port)
+  console.log("Server is listening to port " + port);
 });
