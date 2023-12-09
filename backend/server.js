@@ -29,6 +29,11 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
 // Serve uploaded files as static resources
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+    
+
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to bezkoder application." });
+  });
 
 app.listen(port, () => {
   console.log("Server is listening to port " + port);
