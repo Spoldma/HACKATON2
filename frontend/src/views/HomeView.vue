@@ -1,5 +1,4 @@
 <template>
-  <HeaderComp/>
   <div class="home-view">
     <div v-for="file in fileList" :key="file">
       <a :href="`/uploads/${file}`" target="_blank">{{ file }}</a>
@@ -7,10 +6,7 @@
   </div>
 </template>
   <script>
-    import HeaderComp from "@/components/HeaderComp.vue"
     export default {
-      name: 'HomeView',
-      components: {HeaderComp},
       data() {
         return {
           fileList: [],
