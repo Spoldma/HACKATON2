@@ -20,7 +20,7 @@ export default {
   methods: {
   async fetchFileList() {
     try {
-      const response = await fetch('/api/files'); // Relative URL to the server
+      const response = await fetch('http://localhost:8000/api/files'); // Relative URL to the server
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
