@@ -2,12 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const port = process.env.PORT || 8000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json());
+app.options('/api/upload', cors());
 
 // Multer configuration for file upload
 const storage = multer.diskStorage({
@@ -29,11 +31,22 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
 // Serve uploaded files as static resources
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-    
 
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+// Endpoint to get the list of files
+app.get('/api/files', (req, res) => {
+  const uploadDirectory = path.join(__dirname, 'uploads');
+
+  // Read the contents of the 'uploads' directory
+  fs.readdir(uploadDirectory, (err, files) => {
+    if (err) {
+      console.error('Error reading directory:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      // Send the list of files as a JSON response
+      res.json({ files: files });
+    }
   });
+});
 
 app.listen(port, () => {
   console.log("Server is listening to port " + port);
